@@ -13,6 +13,14 @@ console.log(name);
 name = "Akhil Aduvala" //reassignable
 console.log("after reassiging : " + name);
 
+{
+    let letScope = "block"; //has blocklevel scope, can't be used outside
+    console.log("inside bloack : "+ letScope);
+}
+
+    let letScope = "outside";
+    console.log("outside bloack : "+ letScope);
+
 const pie = 3.147;
 console.log("pie value : " + pie);
 //pie = 123; as pie is const
