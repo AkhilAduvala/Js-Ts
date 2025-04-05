@@ -34,3 +34,22 @@ const myCar = new Car("Tata", "Harier");
 myCar.start();
 myCar.stop();
 myCar.hasTpms();
+
+class ElectricCar extends Car{
+    static fuelType = "Electric";
+
+    constructor(brand, model, range){
+        super(brand, model);
+        this.range = range;
+    }
+
+    hasRange(){
+        console.log(`${this.brand} ${this.model}`, "has a range of", `${this.range}`, "kms");
+    }
+}
+
+const car1 = new ElectricCar("BYD", "Seal", 650);
+car1.start();
+car1.hasRange();
+car1.hasTpms();
+car1.stop();
