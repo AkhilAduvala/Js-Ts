@@ -1,6 +1,12 @@
 /**
  * In JavaScript, inheritance is based on prototypes, not classical classes like Java.
  * but with ES6 class syntax, we can implement inheritance in a way that looks class-based.
+ * 
+ * Use extends for clear class hierarchies.
+ * Use super() inside child constructors before using this.
+ * Prefer composition (mixins) over multiple inheritance when combining behaviors.
+ * Keep inheritance chain shallow (prefer 1-2 levels deep).
+ * Don’t overuse inheritance — favor composition if behavior is unrelated.
  */
 
 class Vechile{
@@ -17,6 +23,7 @@ class Vechile{
     }
 }
 
+//single inheritance
 class Car extends Vechile{
     static tpms = "Yes";
     constructor(brand, model){
@@ -35,6 +42,7 @@ myCar.start();
 myCar.stop();
 myCar.hasTpms();
 
+//multilevel inheritance
 class ElectricCar extends Car{
     static fuelType = "Electric";
 
@@ -53,3 +61,80 @@ car1.start();
 car1.hasRange();
 car1.hasTpms();
 car1.stop();
+
+//JavaScript does not support multiple inheritance directly
+//Mixins (using functions to “mix” multiple behaviors)
+const canEat = {
+    eat() {
+        console.log("Eating..");
+    }
+};
+
+const canWalk = {
+    walk(){
+        console.log("Walking..");
+    }
+};
+const canSwim = {
+    swim(){
+        console.log("Swimming..");
+    }
+};
+
+// Combine into a class
+class Person{}
+Object.assign(Person.prototype, canEat, canWalk, canSwim);
+
+const aki = new Person();
+aki.eat();
+aki.walk();
+aki.swim();
+
+//Hierarchical inheritance
+//multiple classes(Car, Truck) extends a  parent(Vechile)
+class Truck extends Vechile{
+    static payload = "10 Ton";
+    constructor(brand, model){
+        super("Truck");
+        this.brand = brand;
+        this.model = model;
+    }
+
+    load(){
+        console.log(`${this.brand} ${this.model}`, "is loaded now");
+    }
+
+    unload(){
+        console.log(`${this.brand} ${this.model}`, "is unloaded now");
+    }
+} 
+
+const tipper = new Truck("Tata", "X5");
+tipper.load();
+tipper.unload();
+
+class Animal {
+    speak() {
+        console.log("Animal speaks");
+    }
+}
+
+class Dog extends Animal {
+    speak() {
+        // ❌ Original functionality lost
+        console.log("Dog barks");
+    }
+}
+
+class Cat extends Animal{
+    speak(){
+        //Use super.methodName() if you want to retain base logic.
+        super.speak();
+            console.log("Cat Meows");
+    }
+}
+
+const scobby = new Dog();
+scobby.speak();
+const mili = new Cat();
+mili.speak();
